@@ -1,1 +1,1 @@
-# setup-perforce-github-action
+# setup-p4-github-action
