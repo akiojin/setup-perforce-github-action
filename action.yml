@@ -1,0 +1,25 @@
+name: 'setup-perforce-github-action'
+description: 'Setup Perforce GitHub action'
+inputs:
+  ip:
+    description: >
+      Specify the IP address of the Perforce server.
+    required: true
+  username:
+    description: >
+      Specify a Perforce user name.
+    required: true
+  workspace:
+    description: >
+      Specifies the Perforce workspace.
+    required: true
+  password:
+    description: >
+      Specifies the Perforce password.
+    required: true
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+branding:
+  icon: "upload-cloud"
+  color: "orange"
