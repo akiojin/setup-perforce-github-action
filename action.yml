@@ -1,7 +1,7 @@
 name: 'setup-perforce-github-action'
 description: 'Setup Perforce GitHub action'
 inputs:
-  ip:
+  p4-server:
     description: >
       Specify the IP address of the Perforce server.
     required: true
