@@ -46,9 +46,9 @@ async function Run(): Promise<void>
         P4.Initialize(ip, username, workspace);
 
         await ShowVersion()
+        await Trust()
         await ShowInfo()
         await ShowUserInfo()
-        await Trust()
     } catch (ex: any) {
         core.setFailed(ex.message);
     }

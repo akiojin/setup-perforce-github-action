@@ -4346,11 +4346,15 @@ async function Run() {
         if (!IsWindows) {
             throw new Error('Not supported platform.');
         }
-        p4_command_1.P4.Initialize(core.getInput('ip'), core.getInput('username'), core.getInput('workspace'));
+        const ip = core.getInput('ip');
+        const username = core.getInput('username');
+        const workspace = core.getInput('workspace');
+        const password = core.getInput('password');
+        p4_command_1.P4.Initialize(ip, username, workspace);
         await ShowVersion();
+        await Trust();
         await ShowInfo();
         await ShowUserInfo();
-        await Trust();
     }
     catch (ex) {
         core.setFailed(ex.message);
