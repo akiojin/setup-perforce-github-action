@@ -4321,40 +4321,21 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(810));
 const p4_command_1 = __nccwpck_require__(940);
 const IsWindows = process.platform.toLowerCase() === 'win32';
-async function ShowInfo() {
-    core.startGroup('p4 info');
-    await p4_command_1.P4.ShowInfo();
-    core.endGroup();
-}
-async function ShowVersion() {
-    core.startGroup('p4 -V');
-    await p4_command_1.P4.ShowVersion();
-    core.endGroup();
-}
-async function ShowUserInfo() {
-    core.startGroup('p4 clients');
-    await p4_command_1.P4.ShowUserInfo();
-    core.endGroup();
-}
-async function Trust() {
-    core.startGroup('p4 trust');
-    await p4_command_1.P4.Trust();
-    core.endGroup();
-}
 async function Run() {
     try {
         if (!IsWindows) {
             throw new Error('Not supported platform.');
         }
-        const ip = core.getInput('ip');
-        const username = core.getInput('username');
-        const workspace = core.getInput('workspace');
-        const password = core.getInput('password');
-        p4_command_1.P4.Initialize(ip, username, workspace);
-        await ShowVersion();
-        await Trust();
-        await ShowInfo();
-        await ShowUserInfo();
+        p4_command_1.P4.Initialize(core.getInput('ip'), core.getInput('username'), core.getInput('workspace'));
+        core.startGroup('p4 -V');
+        await p4_command_1.P4.ShowVersion();
+        core.endGroup();
+        core.startGroup('p4 trust');
+        await p4_command_1.P4.Trust();
+        core.endGroup();
+        core.startGroup('p4 info');
+        await p4_command_1.P4.ShowInfo();
+        core.endGroup();
     }
     catch (ex) {
         core.setFailed(ex.message);

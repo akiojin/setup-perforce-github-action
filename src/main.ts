@@ -3,34 +3,6 @@ import { P4 } from '@akiojin/p4-command'
 
 const IsWindows = process.platform.toLowerCase() === 'win32'
 
-async function ShowInfo(): Promise<void>
-{
-    core.startGroup('p4 info')
-    await P4.ShowInfo()
-    core.endGroup()
-}
-
-async function ShowVersion(): Promise<void>
-{
-    core.startGroup('p4 -V')
-    await P4.ShowVersion()
-    core.endGroup()
-}
-
-async function ShowUserInfo(): Promise<void>
-{
-    core.startGroup('p4 clients')
-    await P4.ShowUserInfo()
-    core.endGroup()
-}
-
-async function Trust(): Promise<void>
-{
-    core.startGroup('p4 trust')
-    await P4.Trust()
-    core.endGroup()
-}
-
 async function Run(): Promise<void> 
 {
     try {
@@ -38,17 +10,22 @@ async function Run(): Promise<void>
             throw new Error('Not supported platform.')
         }
 
-        const ip = core.getInput('ip')
-        const username = core.getInput('username')
-        const workspace = core.getInput('workspace')
-        const password = core.getInput('password')
+        P4.Initialize(
+            core.getInput('ip'),
+            core.getInput('username'),
+            core.getInput('workspace'));
 
-        P4.Initialize(ip, username, workspace);
+        core.startGroup('p4 -V')
+        await P4.ShowVersion()
+        core.endGroup()
 
-        await ShowVersion()
-        await Trust()
-        await ShowInfo()
-        await ShowUserInfo()
+        core.startGroup('p4 trust')
+        await P4.Trust()
+        core.endGroup()
+    
+        core.startGroup('p4 info')
+        await P4.ShowInfo()
+        core.endGroup()
     } catch (ex: any) {
         core.setFailed(ex.message);
     }
