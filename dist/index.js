@@ -4326,7 +4326,7 @@ async function Run() {
         if (!IsWindows) {
             throw new Error('Not supported platform.');
         }
-        p4_command_1.P4.Initialize(core.getInput('p4-server'), core.getInput('username'), core.getInput('workspace'));
+        p4_command_1.P4.Initialize(core.getInput('server'), core.getInput('username'), core.getInput('workspace'));
         core.startGroup('p4 -V');
         await p4_command_1.P4.ShowVersion();
         core.endGroup();

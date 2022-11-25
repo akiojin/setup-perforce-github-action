@@ -11,7 +11,7 @@ async function Run(): Promise<void>
         }
 
         P4.Initialize(
-            core.getInput('p4-server'),
+            core.getInput('server'),
             core.getInput('username'),
             core.getInput('workspace'));
 
